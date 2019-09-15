@@ -1,0 +1,28 @@
+{
+	"author": "Thiyagesh",
+	"keyspace": "scrapper",
+	"table": "productinfo",
+	"version": 0.1,
+	"payload": [
+			{
+				"productname": "TV",
+				"producturl": "https://www.amazon.com/Samsung-QN65Q6FN-FLAT-QLED-Smart/dp/B079V1MSQ1?ref_=Oct_DotdC_58jj_0_7e3c5cee&pf_rd_p=de0d69bf-2bfa-5d24-ae95-0146345ce243&pf_rd_s=merchandised-search-4&pf_rd_t=101&pf_rd_i=172659&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=N5MK5AXK4VDW3TM0FA7T&pf_rd_r=N5MK5AXK4VDW3TM0FA7T&pf_rd_p=de0d69bf-2bfa-5d24-ae95-0146345ce243"
+			}, 
+			{
+				"productname": "PlayStation",
+				"producturl": "https://www.amazon.com/PlayStation-4-Slim-1TB-Console/dp/B071CV8CG2/ref=sr_1_1?keywords=playstation&qid=1568515297&s=electronics&sr=1-1"
+			},
+			{
+				"productname": "IPhone11",
+				"producturl": "https://www.walmart.com/ip/AT-T-Apple-iPhone-11-Pro-Max-512GB-Silver-Upgrade-Only/745930459"
+			},
+			{
+				"productname": "BountyTowels",
+				"producturl": "https://www.walmart.com/ip/Bounty-Select-A-Size-Paper-Towels-6-Triple-Rolls/950297812"
+			},
+			{
+				"productname": "ChocolateCookies",
+				"producturl": "https://www.alibaba.com/product-detail/Delicious-Chocolate-Chip-Biscuit-Cookies-for_62229384326.html?spm=a2700.7724857.normalList.6.6e08723ctsqZct&s=p"
+			}
+	 ]
+}
