@@ -24,6 +24,8 @@ CREATE TABLE productimageinfo (
 	) WITH CLUSTERING ORDER BY (createdon DESC, modifiedon DESC);
 
 CREATE TABLE productmetainfo (
+	pid bigint,
+	purlid bigint,
 	metainfoid bigint,  
 	description text,
 	retailer text,
