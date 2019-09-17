@@ -13,6 +13,7 @@ APP=app
 #external packages
 gocql = github.com/gocql/gocql
 xxhash = github.com/OneOfOne/xxhash
+goyaml = gopkg.in/yaml.v2
 
 
 
@@ -22,6 +23,7 @@ all : clean deps build install
 deps:
 	$(GOGET) $(gocql)
 	$(GOGET) $(xxhash)
+	$(GOGET) $(goyaml)
 
 install :
 	$(GOINSTALL)

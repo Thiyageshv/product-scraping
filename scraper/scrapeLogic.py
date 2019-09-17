@@ -71,6 +71,8 @@ class Scraper():
 		images = bs.find_all('img', {'src':re.compile('.' + vendorScraper.imageType)})
 		for image in images: 
 			if vendorScraper.urlCheck == "" or vendorScraper.urlCheck in image['src']:
+				if image['src'][0:2] == '//':
+					return "https:" + image['src']
 				return image['src']
 		return ""
 
