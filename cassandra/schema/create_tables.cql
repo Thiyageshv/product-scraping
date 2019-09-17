@@ -1,27 +1,37 @@
 USE scraper;
 
-CREATE TABLE productinfo (
+CREATE TABLE productpageinfo (
 	pid bigint,
 	purlid bigint,
 	pname text,
 	purl text,
 	isexpired int,
+	totaltries bigint,
+	totalmisses bigint,
 	createdon timestamp,
 	modifiedon timestamp,
 	modifiedby text,
-	PRIMARY KEY (purl, createdon, modifiedon)
-	) WITH CLUSTERING ORDER BY (createdon DESC, modifiedon DESC);
+	PRIMARY KEY ((pid, purlid), pname)
+	) WITH CLUSTERING ORDER BY (pname DESC);
 
-CREATE TABLE productimageinfo (
+CREATE TABLE productinfo (
 	pid bigint,
 	purlid bigint, 
-	iurlid bigint,
 	metainfoid bigint,
+	imagegroup list<bigint>,
+	createdon timestamp,
+	modifiedon timestamp,
+	PRIMARY KEY ((purlid), pid)
+	) WITH CLUSTERING ORDER BY (pid DESC);
+
+CREATE TABLE productimageinfo (
+	purlid bigint,
+	iurlid bigint,
 	iurl text,
 	createdon timestamp,
 	modifiedon timestamp,
-	PRIMARY KEY ((iurl, metainfoid), createdon, modifiedon)
-	) WITH CLUSTERING ORDER BY (createdon DESC, modifiedon DESC);
+	PRIMARY KEY ((iurlid), purlid)
+	) WITH CLUSTERING ORDER BY (purlid DESC);
 
 CREATE TABLE productmetainfo (
 	pid bigint,
@@ -29,11 +39,11 @@ CREATE TABLE productmetainfo (
 	metainfoid bigint,  
 	description text,
 	retailer text,
-	price float,
+	price text,
 	seller text,
 	createdon timestamp,
 	modifiedon timestamp,
-	PRIMARY KEY ((metainfoid), price) 
-	) WITH CLUSTERING ORDER BY (price ASC);
+	PRIMARY KEY ((purlid), pid) 
+	) WITH CLUSTERING ORDER BY (pid DESC);
 
 

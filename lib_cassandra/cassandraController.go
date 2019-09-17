@@ -3,13 +3,10 @@ package cassandra
 import (
 	"fmt"
 	"log"
-	"time"
-
 	"github.com/gocql/gocql"
 )
 
 type CasDb struct {
-	Cursor     *Query
 	Session    *gocql.Session
 	DateFormat string
 }
@@ -26,26 +23,26 @@ type CasaConfig struct {
 	DateFormat  string
 }
 
-func TestCasaConfig() *CasaConfig {
+func LocalCasaConfig() *CasaConfig {
 	var nodes []Node
-	nodes = append(nodes, Node{Ip: "", Name: "ob1"})
+	nodes = append(nodes, Node{Ip: "127.0.0.1"})
 	return &CasaConfig{
 		Cluster:     nodes,
-		Keyspace:    "hello_world",
+		Keyspace:    "scraper",
 		Consistency: gocql.Quorum,
 		DateFormat:  "2006-01-02",
 	}
 }
 
-func (c *CasDb) GetCurrentTime() (time.Time, string, int) {
-	time_seen := time.Now().UTC()
-	date_seen := time_seen.Format(fmt.Sprintf("%s", c.DateFormat))
-	hour_seen := time_seen.Hour()
-	return time_seen, date_seen, hour_seen
+
+func GetTimeUUID() gocql.UUID {
+	return gocql.TimeUUID()
 }
 
-func (c *CasDb) GetTimeUUID() gocql.UUID {
-	return gocql.TimeUUID()
+func prepareQuery(query string, args ...interface{}) string {
+	fullquery := fmt.Sprintf(query, args...)
+	log.Println(fullquery)
+	return fullquery
 }
 
 func getHostString(config *CasaConfig) []string {
@@ -69,31 +66,5 @@ func InitializeCasaConn(config *CasaConfig) (*CasDb, error) {
 		return nil, err
 	}
 	//defer session.Close()
-	cursor := SetQueryBook()
-	return &CasDb{Cursor: cursor, Session: session, DateFormat: config.DateFormat}, nil
-}
-
-func main() {
-	// connect to the cluster
-	//cluster := gocql.NewCluster("10.33.172.128", "10.33.172.129", "10.33.172.130", "10.33.172.131")
-	config := TestCasaConfig()
-	//hosts := getHostString(config)
-	//cluster := gocql.NewCluster(hosts...)
-	//cluster.Keyspace = "hello_world"
-	//cluster.Consistency = gocql.Quorum
-	//session, _ := cluster.CreateSession()
-	//defer session.Close()
-	//get_container_details(session)
-	casdb, _ := InitializeCasaConn(config)
-	//err1 := casdb.Insert_event("test", "testtote2")
-	//if err1 != nil {
-	//        log.Println(err1)
-	//}
-	results, err := casdb.Get_tote_scanned("test", "testtote2")
-	if err != nil {
-		log.Println(err)
-	}
-	for _, result := range results {
-		log.Println(result.Transaction_status)
-	}
+	return &CasDb{Session: session, DateFormat: config.DateFormat}, nil
 }

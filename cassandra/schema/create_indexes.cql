@@ -1,11 +1,15 @@
 USE scraper;
 
-CREATE INDEX PID ON productimageinfo (pid);
+CREATE INDEX PNAME ON productpageinfo(pname);
 
-CREATE INDEX PURLID ON productimageinfo (purlid);
+CREATE INDEX PID ON productinfo(pid);
 
-CREATE INDEX RETAILER ON productmetainfo (retailer);
+CREATE INDEX METAINFOID ON productinfo(metainfoid);
 
-CREATE INDEX SELLER ON productmetainfo (seller);	
+CREATE INDEX PURLID ON productimageinfo(purlid)
+
+CREATE INDEX RETAILER ON productmetainfo(retailer);
+
+CREATE INDEX SELLER ON productmetainfo(seller);	
 
 

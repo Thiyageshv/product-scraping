@@ -1,7 +1,7 @@
 {
 	"author": "Thiyagesh",
-	"keyspace": "scrapper",
-	"table": "productinfo",
+	"keyspace": "scraper",
+	"table": "productpageinfo",
 	"version": 0.1,
 	"payload": [
 			{
