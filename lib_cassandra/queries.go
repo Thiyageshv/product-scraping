@@ -1,6 +1,7 @@
 package cassandra 
 
 
+var getPageInfo = `SELECT pid, purlid, pname, purl, isexpired, totaltries, totalmisses, modifiedby, createdon, modifiedon FROM scraper.productpageinfo ALLOW FILTERING`
 var getPageBasicInfo = `SELECT pid, purlid, pname, purl FROM scraper.productpageinfo ALLOW FILTERING`
 var getPageMetricInfo = `SELECT pid, purlid, pname, isexpired, totaltries, totalmisses, modifiedby, createdon, modifiedon FROM scraper.productpageinfo ALLOW FILTERING`
 var updateMetrics = `UPDATE scraper.productpageinfo SET isexpired=%d, totaltries=%d, totalmisses=%d WHERE pid=%d AND purlid=%d AND pname='%s'`

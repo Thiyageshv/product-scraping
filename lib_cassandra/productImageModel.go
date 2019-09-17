@@ -2,7 +2,6 @@ package cassandra
 
 import (
 	"time"
-	util "product-scraping/lib_utilities"
 )
 
 
@@ -16,8 +15,7 @@ type ProductImageInfo struct {
 }
 
 
-func (c * CasDb) AddProductImageInfo(groupid int64, iurl string) error {
-	iurlid := util.XXHash(iurl)
+func (c * CasDb) AddProductImageInfo(groupid int64, iurl string, iurlid int64) error {
 	err := c.Session.Query(prepareQuery(addProductImage, groupid, iurlid, iurl)).Exec()
 	return err
 }

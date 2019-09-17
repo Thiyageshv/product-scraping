@@ -38,7 +38,7 @@ class Product():
 		self.pname = title
 
 	def getJSON(self):
-		return {"name": self.pname, "imageurl": self.purl, "retailer": self.retailer, "metainfo": {
+		return {"name": self.pname, "imageurl": [self.purl], "retailer": self.retailer, "metainfo": {
 										"description" : self.description,
 										"price": self.price,
 										"seller": self.seller,

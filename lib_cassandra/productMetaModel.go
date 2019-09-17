@@ -2,7 +2,6 @@ package cassandra
 
 import (
 	"time"
-	util "product-scraping/lib_utilities"
 )
 
 
@@ -25,8 +24,7 @@ func (c *CasDb) GetProductMetaInfo(purlid int64, pid int64) (ProductMetaInfo, er
 	return pinfo, err
 }
 
-func (c * CasDb) AddProductMetaInfo(pid int64, purlid int64, description string, retailer string, price string, seller string) error {
-	metainfoid := util.XXHash(description + retailer + price + seller) + purlid 
+func (c * CasDb) AddProductMetaInfo(pid int64, purlid int64, metainfoid int64, description string, retailer string, price string, seller string) error {
 	err := c.Session.Query(prepareQuery(addProductMetaInfo, pid, purlid, metainfoid, description, retailer, price, seller)).Exec()
 	return err
 }

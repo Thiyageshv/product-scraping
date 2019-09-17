@@ -15,7 +15,18 @@ type ProductPageInfo struct {
 	TotalMisses 	int64 		`json:"totalmisses"`
 	CreatedOn 		time.Time 	`json:"createdon"`
 	ModifiedOn 		time.Time 	`json:"modifiedon"`
-	ModifiedBy 		string 		`json:"modifiedby"`
+	ModifiedBy  	string 		`json:"modifiedby"`
+}
+
+func (c * CasDb) GetProductPageInfo() ([]ProductPageInfo, error) {
+	var results []ProductPageInfo
+	var pinfo ProductPageInfo
+	iter := c.Session.Query(getPageInfo).Iter()
+	for iter.Scan(&pinfo.PID, &pinfo.PURLID, &pinfo.PName, &pinfo.PURL, &pinfo.IsExpired, &pinfo.TotalTries, &pinfo.TotalMisses, &pinfo.ModifiedBy, &pinfo.CreatedOn, &pinfo.ModifiedOn) {
+		results = append(results, pinfo)
+	}
+	err := iter.Close()
+	return results, err
 }
 
 func (c *CasDb) GetProductPagesBasic() ([]ProductPageInfo, error) {
@@ -34,14 +45,14 @@ func (c *CasDb) GetProductPagesMetrics() ([]ProductPageInfo, error) {
 	var results []ProductPageInfo
 	var pinfo ProductPageInfo
 	iter := c.Session.Query(getPageMetricInfo).Iter()
-	for iter.Scan(&pinfo.PID, &pinfo.PURLID, &pinfo.PName, &pinfo.IsExpired, &pinfo.TotalTries, &pinfo.TotalMisses, &pinfo.CreatedOn, &pinfo.ModifiedOn, &pinfo.ModifiedBy) {
+	for iter.Scan(&pinfo.PID, &pinfo.PURLID, &pinfo.PName, &pinfo.IsExpired, &pinfo.TotalTries, &pinfo.TotalMisses, &pinfo.ModifiedBy, &pinfo.CreatedOn, &pinfo.ModifiedOn) {
 		results = append(results, pinfo)
 	}
 	err := iter.Close()
 	return results, err
 }
 
-func (c *CasDb) UpdateProductMetrics(pid int64, purlid int64, isExpired int, totaltries int64, totalmisses int64, pname string) error {
+func (c *CasDb) UpdateProductMetrics(pid int64, purlid int64, pname string, isExpired int, totaltries int64, totalmisses int64) error {
 	err := c.Session.Query(prepareQuery(updateMetrics, isExpired, totaltries, totalmisses, pid, purlid, pname)).Exec()
 	return err
 }
