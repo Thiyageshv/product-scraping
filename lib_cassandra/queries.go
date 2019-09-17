@@ -15,4 +15,5 @@ var addProductMetaInfo = `INSERT INTO scraper.productmetainfo (pid, purlid, meta
 
 
 var getProductImageInfo = `SELECT purlid, iurlid, iurl, createdon, modifiedon FROM scraper.productimageinfo WHERE iurlid=%d AND purlid=%d`
+var getProductImagesInfo = `SELECT purlid, iurlid, iurl, createdon, modifiedon FROM scraper.productimageinfo WHERE purlid=%d`
 var addProductImage = `INSERT INTO scraper.productimageinfo (purlid, iurlid, iurl, createdon, modifiedon) VALUES (%d, %d, '%s', toUnixTimestamp(now()), toUnixTimestamp(now()))`

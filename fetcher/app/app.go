@@ -59,5 +59,6 @@ func (a *App) Initialize(conf *Config) {
 }
 
 func (a *App) Run() {
-
+	log.Println("serving...")
+	http.ListenAndServe(":6000", nil)
 }

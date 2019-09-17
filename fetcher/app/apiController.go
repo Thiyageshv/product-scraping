@@ -34,7 +34,7 @@ func (a *App) getMetricsEntry(w http.ResponseWriter, req *http.Request) {
 		util.SendJsonErrorResponse(w, util.HTTPInvalidRequest, util.InvalidRequestMessage, "")
 		return
 	}
-	responseObj, err := a.getInfo()
+	responseObj, err := a.getProductMetrics()
 	if err != nil {
 		util.SendJsonErrorResponse(w, util.HTTPInternalError, util.InternalErrorMessage, err.Error())
 		return

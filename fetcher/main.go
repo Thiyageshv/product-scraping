@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"product-scraping/cacher/app"
+	"product-scraping/fetcher/app"
 
 	yaml "gopkg.in/yaml.v2"
 )
