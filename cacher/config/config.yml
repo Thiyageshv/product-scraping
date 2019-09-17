@@ -1,0 +1,6 @@
+logfilepath: /var/log/cacher.log
+datetimeformat: 2006-01-02 15:04:05
+utctimeformat: 2006-01-02T15:04:05Z
+scrapeinterval: 30
+scrapeendpoint: http://127.0.0.1:5000/scraper/api/v1/scrape
+expirythreshold: 70
