@@ -1,8 +1,17 @@
 from flask import Flask
-import sys 
+from controller import *
+
+app = Flask(__name__)
 
 
 class App():
 	def __init__(self):
-		app = Flask(__name__)
-		@app.route("/")
+		self.apiController = APIController()
+		self.addRules()
+
+	def addRules(self):
+		app.add_url_rule('/scraper/api/v1/scrape', 'fetchProductInfo', self.apiController.fetchProductInfo, methods=["POST"])
+
+if __name__ == '__main__':		
+	appobj = App()
+	app.run(debug=True)

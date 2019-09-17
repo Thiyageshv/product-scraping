@@ -18,7 +18,7 @@ class AmazonScraper():
 
 	def getProductBrand(self, bs):
 		try:
-			return bs.find(class_="prod-brandName")
+			return bs.find(class_="prod-brandName").get_text()
 		except:
 			return ""
 

@@ -5,17 +5,32 @@ class WalmartScraper():
 		self.urlCheck = ""
 
 	def getProductTitle(self, bs):
-		return bs.find(class_="ProductTitle").get_text()
+		try:
+			return bs.find(class_="ProductTitle").get_text()
+		except:
+			return ""
 
 	def getProductBrand(self, bs):
-		return bs.find(class_="prod-brandName")
+		try:
+			return bs.find(class_="prod-brandName").get_text()
+		except:
+			return ""
 
 	def getProductSeller(self, bs):
-		return bs.find('a', class_="seller-name").get_text()
+		try:
+			return bs.find('a', class_="seller-name").get_text()
+		except:
+			return ""
 
 	def getProductDescription(self, bs):
-		return bs.find(class_="product-short-description-wrapper").get_text()
+		try:
+			return bs.find(class_="product-short-description-wrapper").get_text().strip("&quot;")
+		except:
+			return ""
 
 	def getPrice(self, bs):
-		return bs.find(class_="price-group").get_text()
+		try:
+			return bs.find(class_="price-group").get_text()
+		except:
+			return ""
 
