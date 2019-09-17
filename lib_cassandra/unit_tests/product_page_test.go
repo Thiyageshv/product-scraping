@@ -11,7 +11,7 @@ var purlid = int64(4279907335)
 var isexpired = 0
 var totaltries = int64(5)
 var totalmisses = int64(3)
-var pname = "tv"
+var pname = "TV"
 
 func Test_update(t *testing.T) {
 	config := cas.LocalCasaConfig()
@@ -20,7 +20,7 @@ func Test_update(t *testing.T) {
 		log.Println(err)
 		return
 	} 
-	err = casdb.UpdateProductMetrics(pid, purlid, isexpired, totaltries, totalmisses, createdon)
+	err = casdb.UpdateProductMetrics(pid, purlid, isexpired, totaltries, totalmisses, pname)
 	if err != nil {
 		log.Println(err)
 	}
