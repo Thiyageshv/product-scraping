@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 	cas "product-scraping/lib_cassandra"
 	util "product-scraping/lib_utilities"
 )
@@ -30,8 +31,10 @@ func (a *App) initializeCasCursor() {
 	var err error
 	config := cas.LocalCasaConfig()
 	a.CasCursor, err = cas.InitializeCasaConn(config)
-	if err != nil {
-		log.Fatal("Failed to establish Cassandra connection")
+	for err != nil {
+		time.Sleep(time.Duration(a.Conf.RetryInterval) * time.Second)
+		log.Println("Retrying connecting to Cassandra...")
+		a.CasCursor, err = cas.InitializeCasaConn(config)
 	}
 }
 

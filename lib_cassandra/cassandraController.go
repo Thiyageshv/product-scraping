@@ -2,8 +2,8 @@ package cassandra
 
 import (
 	"fmt"
-	"log"
 	"github.com/gocql/gocql"
+	util "product-scraping/lib_utilities"
 )
 
 type CasDb struct {
@@ -25,7 +25,7 @@ type CasaConfig struct {
 
 func LocalCasaConfig() *CasaConfig {
 	var nodes []Node
-	nodes = append(nodes, Node{Ip: "127.0.0.1"})
+	nodes = append(nodes, Node{Ip: util.GetHostIP()})
 	return &CasaConfig{
 		Cluster:     nodes,
 		Keyspace:    "scraper",
@@ -41,7 +41,6 @@ func GetTimeUUID() gocql.UUID {
 
 func prepareQuery(query string, args ...interface{}) string {
 	fullquery := fmt.Sprintf(query, args...)
-	log.Println(fullquery)
 	return fullquery
 }
 

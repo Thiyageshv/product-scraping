@@ -4,11 +4,12 @@ import (
 	"testing"
 	"log"
 	cas "product-scraping/lib_cassandra"
+	util "product-scraping/lib_utilities"
 )
 
 var pid = int64(01)
 var purlid = int64(123)
-var description = "Lorum Epsum"
+var description = "Don't let spills and messes get in your way. Lock in confidence with Bounty, the Quicker Picker Upper*. This pack contains Bounty white Select-A-Size paper towels that are 2X more absorbent* and strong when wet, so you can get the job done quickly. *vs. leading ordinary brand"
 var retailer = "Rakuten"
 var price = "0.01$"
 var seller = "bounty"
@@ -20,7 +21,8 @@ func Test_add(t *testing.T) {
 		log.Println(err)
 		return
 	}
-	err = casdb.AddProductMetaInfo(pid, purlid, description, retailer, price, seller)
+	metainfoid := util.XXHash(description + retailer + price + seller) + purlid
+	err = casdb.AddProductMetaInfo(pid, purlid, metainfoid, description, retailer, price, seller)
 	if err != nil {
 		log.Println(err)
 	}

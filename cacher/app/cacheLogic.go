@@ -28,7 +28,6 @@ func (a *App) scrape(purl string) (Product, error) {
 	var pinfo ScrapeResponse
 	bodyparams := map[string]string{}
 	bodyparams["producturl"] = purl
-	log.Println("Posting request to", a.Conf.ScrapeEndpoint)
 	_, result, err := util.SendPostRequest(a.Conf.ScrapeEndpoint, bodyparams)
 	if err != nil {
 		return pinfo.Response, err
@@ -46,6 +45,9 @@ func (a *App) storeMetaInfo(pid int64, purlid int64, product Product) (int64, er
 func (a *App) storeImageInfo(purlid int64, iurls []string) ([]int64, error) {
 	idList := []int64{}
 	for _, iurl := range iurls {
+		if iurl == "" {
+			continue
+		}
 		iurlid := util.XXHash(iurl)
 		err := a.CasCursor.AddProductImageInfo(purlid, iurl, iurlid)
 		if err != nil {
@@ -88,27 +90,28 @@ func (a *App) updateMetrics(pid int64, purlid int64, pname string, totaltry int6
 func (a *App) scrapeAndCache() error {
 	productPageInfo, err := a.CasCursor.GetProductPageInfo()
 	if err != nil {
-		log.Println(err)
 		return err 
 	}
 	for _, page := range productPageInfo {
 		isFailed := false
-		pid, pname, purlid, purl  := page.PID, page.PName, page.PURLID, page.PURL 
+		pid, pname, purlid, purl  := page.PID, page.PName, page.PURLID, page.PURL
+		log.Println("###### Processing ", pid, pname, " with URL ", purl)
 		pinfo, err := a.scrape(purl)
+		log.Println("##### Finished scraping ", pid, pname, pinfo)
 		if purl == "" {
 			continue
 		}
 		if err != nil {
 			isFailed = true
 			a.updateMetrics(pid, purlid, pname, page.TotalTries, page.TotalMisses, isFailed)
-			return err 
-		} else {
-			a.updateMetrics(pid, purlid, pname, page.TotalTries, page.TotalMisses, isFailed)
+			continue 
 		}
+		a.updateMetrics(pid, purlid, pname, page.TotalTries, page.TotalMisses, isFailed)
 		err = a.fetchAndStoreInformation(pid, purlid, purl, pinfo)
 		if err != nil {
 			return err
 		}
+		log.Println("####### Finished Processing ", pid, pname)
 	}
 	return nil
 }
@@ -121,7 +124,8 @@ func (a *App) startScrapeJob() {
 		for {
 			select {
 			case <-ticker.C:
-				a.scrapeAndCache()
+				err := a.scrapeAndCache()
+				log.Println("Error scraping ", err)
 			case _, ok := <-a.Quit:
 				if !ok {
 					ticker.Stop()

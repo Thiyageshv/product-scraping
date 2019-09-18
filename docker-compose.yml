@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  cassandra:
+    image: thiyageshv/product-scraping:cassandra
+    networks:
+      - backend
+    ports:
+      - "9042:9042"
+      - "9160:9160"
+  scraper:
+    image: thiyageshv/product-scraping:scraper
+    networks:
+      - backend
+    ports:
+      - "5000:5000"
+  cacher: 
+    image: thiyageshv/product-scraping:cacher
+    networks:
+      - backend
+    environment:
+      HOSTIP: host.docker.internal
+  fetcher:
+    image: thiyageshv/product-scraping:fetcher
+    networks:
+      - backend
+    ports:
+      - "6000:6000"
+    environment:
+      HOSTIP: host.docker.internal
+networks:
+  backend:
+    driver: "bridge"

@@ -19,8 +19,9 @@ func (a *App) getImages(purlid int64, pid int64) ([]cas.ProductImageInfo, error)
 	for _, iurlid := range pinfo.IURLGroup {
 		pimginfo, err := a.CasCursor.GetProductImageInfo(iurlid, purlid)
 		if err != nil {
-			results = append(results, pimginfo)
+			continue
 		}
+		results = append(results, pimginfo)
 	}
 	return results, nil
 }

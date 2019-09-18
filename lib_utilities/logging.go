@@ -14,3 +14,7 @@ func InitializeLogFile(logfilepath string) (*os.File, error) {
 	io.MultiWriter(os.Stdout, LogFile)
 	return LogFile, nil
 }
+
+func GetHostIP() string {
+	return os.Getenv("HOSTIP")
+}

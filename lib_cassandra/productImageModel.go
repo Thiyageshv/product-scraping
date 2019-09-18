@@ -2,6 +2,7 @@ package cassandra
 
 import (
 	"time"
+	util "product-scraping/lib_utilities"
 )
 
 
@@ -16,6 +17,7 @@ type ProductImageInfo struct {
 
 
 func (c * CasDb) AddProductImageInfo(groupid int64, iurl string, iurlid int64) error {
+	iurl = util.URLEncode(iurl)
 	err := c.Session.Query(prepareQuery(addProductImage, groupid, iurlid, iurl)).Exec()
 	return err
 }
@@ -23,7 +25,15 @@ func (c * CasDb) AddProductImageInfo(groupid int64, iurl string, iurlid int64) e
 func (c *CasDb) GetProductImageInfo(iurlid int64, purlid int64) (ProductImageInfo, error) {
 	var pinfo ProductImageInfo
 	err := c.Session.Query(prepareQuery(getProductImageInfo, iurlid, purlid)).Scan(&pinfo.PURLID, &pinfo.IURLID, &pinfo.IURL, &pinfo.CreatedOn, &pinfo.ModifiedOn)
-	return pinfo, err
+	if err != nil {
+		return pinfo, err
+	}
+	decoded, err := util.URLDecode(pinfo.IURL)
+	if err != nil {
+		return pinfo, err
+	} 
+	pinfo.IURL = decoded
+	return pinfo, nil
 } 
 
 

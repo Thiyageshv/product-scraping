@@ -6,13 +6,17 @@ class AmazonScraper():
 
 	def getPrice(self, bs):
 		try:
-			bs.find(id="priceblock_ourprice").get_text()
-		except:
+			bs.find('span', class_="a-price").get_text()
+		except Exception as e:
+			print(e)
 			return ""
 
 	def getProductTitle(self, bs):
 		try:
-			return bs.find(class_="ProductTitle").get_text()
+			for node in bs.find_all('div', class_="a-row r4m-sou-product-name"):
+				print(node.get_text())
+				return node.get_text()
+			return ""
 		except:
 			return ""
 
@@ -24,7 +28,7 @@ class AmazonScraper():
 
 	def getProductSeller(self, bs):
 		try:
-			return bs.find('a', class_="seller-name").get_text()
+			return bs.find('a', id="bylineInfo").get_text()
 		except:
 			return ""
 
