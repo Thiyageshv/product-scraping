@@ -37,6 +37,7 @@ CREATE TABLE productmetainfo (
 	pid bigint,
 	purlid bigint,
 	metainfoid bigint,  
+	title text, 
 	description text,
 	retailer text,
 	price text,

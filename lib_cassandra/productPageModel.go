@@ -52,6 +52,11 @@ func (c *CasDb) GetProductPagesMetrics() ([]ProductPageInfo, error) {
 	return results, err
 }
 
+func (c * CasDb) AddProductPageInfo(pid int64, purlid int64, purl string, pname string, user string) error {
+	err := c.Session.Query(prepareQuery(addPageInfo, pid, purlid, purl, pname, user)).Exec()
+	return err
+}
+
 func (c *CasDb) UpdateProductMetrics(pid int64, purlid int64, pname string, isExpired int, totaltries int64, totalmisses int64) error {
 	err := c.Session.Query(prepareQuery(updateMetrics, isExpired, totaltries, totalmisses, pid, purlid, pname)).Exec()
 	return err

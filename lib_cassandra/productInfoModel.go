@@ -16,6 +16,19 @@ type ProductInfo struct {
 	ModifiedOn      time.Time `json:"modifiedon"`
 }
 
+type SimpleProductInfo struct {
+	PID int64 `json:"pid"`
+	PURLID int64 `json:"purlid"`
+	IURL string `json:"iurl"`
+	Title string `json:"title"`
+	Description string `json:"description"`
+	Price string `json:"price"`
+	Retailer string `json:"retailer"`
+	Seller string `json:"seller"`
+	CreatedOn string `json:"createdon"`
+	ModifiedOn string `json:"modifiedon"`
+}
+
 
 func (c *CasDb) GetProductInfo(purlid int64, pid int64) (ProductInfo, error) {
 	var pinfo ProductInfo

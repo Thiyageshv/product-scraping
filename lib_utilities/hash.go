@@ -4,6 +4,7 @@ import (
 	"io"
 	"strings"
 	"github.com/OneOfOne/xxhash"
+	"hash/crc32"
 	 b64 "encoding/base64"
 )
 
@@ -12,6 +13,11 @@ func XXHash(input string) int64 {
 	r := strings.NewReader(input)
 	io.Copy(h, r)
 	return int64(h.Sum64())
+}
+
+func Hash32(input string) int {
+	crc32Uint32 := crc32.ChecksumIEEE([]byte(input))
+	return int(crc32Uint32)
 }
 
 func B64Encode(input string) string {

@@ -38,7 +38,7 @@ func (a *App) scrape(purl string) (Product, error) {
 
 func (a *App) storeMetaInfo(pid int64, purlid int64, product Product) (int64, error) {
 	metainfoid := util.XXHash(product.MetaInfo.Description + product.Retailer + product.MetaInfo.Price + product.MetaInfo.Seller) + purlid 
-	err := a.CasCursor.AddProductMetaInfo(pid, purlid, metainfoid, product.MetaInfo.Description, product.Retailer, product.MetaInfo.Price, product.MetaInfo.Seller)
+	err := a.CasCursor.AddProductMetaInfo(pid, purlid, metainfoid, product.Name, product.MetaInfo.Description, product.Retailer, product.MetaInfo.Price, product.MetaInfo.Seller)
 	return metainfoid, err
 }
 
