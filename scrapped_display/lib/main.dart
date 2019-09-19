@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'product_repository.dart';
 import 'product.dart';
 
@@ -50,27 +51,6 @@ class ProductTile extends StatelessWidget {
   } 
 }
 
-/* class ProductTile extends StatelessWidget {
-  final Product _product;
-  ProductTile(this._product);
-
-  @override
-  Widget build(BuildContext context) => Column(
-    children: <Widget>[
-      ListTile(
-        title: Text(_product.metainfo.title + " by " + _product.metainfo.retailer),
-        subtitle: Text(_product.metainfo.price),
-        leading: Container(
-          margin: EdgeInsets.only(left: 6.0),
-          child: Image.network(_product.imageurls[0].iurl, height: 50.0, fit: BoxFit.fill,)
-        ),
-      ),
-      Divider()
-    ],
-  );
-}*/
-
-
 class ProductListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -96,10 +76,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    const interval = const Duration(seconds:10);
+    new Timer.periodic(interval, (Timer t) => listenForProducts());
     listenForProducts();
   }
 
   void listenForProducts() async {
+    _products = <Product>[];
     final Stream<Product> stream = await getInfo();
     stream.listen((Product p) =>
       setState(() =>  _products.add(p))
