@@ -1,3 +1,7 @@
+#Overview 
+
+The project uses beautifulsoup library to parse through the web page. It works only on product pages. There are individual classes to parse Amazon(flaky), Ebay, Walmart and Alibaba. It is easy to add more classes. There is also a generic class but it is not guranteed to work on all pages and websites. 
+
 # Getting started
 
 Download the scraper image from the [docker hub](https://cloud.docker.com/repository/docker/thiyageshv/product-scraping) or build docker file and run
