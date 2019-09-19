@@ -34,8 +34,7 @@ Open the APK file residing in scrapped_display folder on Android Studio and run 
 1. /fetcher/api/v1/getInfo - Gets imageurl information and meta information from db
 2. /fetcher/api/v1/getMetrics - Gets product page information and associated metrics, number of scraping failures, total tries, link expiry and so on.
 3. /fetcher/api/v1/addInfo - Adds product url and product name into the productpage info table for it to be scraped in the next cycle
-
-Use [this](https://www.getpostman.com/collections/b29f797b51d162b2a012) link to download the POSTMAN collection to try them. 
+ 
 ###### Internal
 1. /scraper/api/v1/scrape - takes product URL as a parameter and returns Image URL inside the page and all meta information such as seller, price, product description and so on. 
-    
+Use [this](https://www.getpostman.com/collections/b29f797b51d162b2a012) link to download the POSTMAN collection to try them.
