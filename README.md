@@ -21,7 +21,7 @@ docker-compose up
 
 ```
 
-That is all it takes seriously! The images are hosted in the docker hub. The command fetches and builds the images on a separate bridge network that would be accessible by localhost. 
+That is all it takes seriously! The images are hosted in the [docker hub](https://cloud.docker.com/repository/docker/thiyageshv/product-scraping). The command fetches and builds the images on a separate bridge network that would be accessible by localhost. 
 
 ###### Frontend
 
