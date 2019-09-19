@@ -12,6 +12,8 @@ services:
     image: thiyageshv/product-scraping:scraper
     networks:
       - backend
+    links:
+      - cacher
     ports:
       - "5000:5000"
   cacher: 
@@ -20,6 +22,7 @@ services:
       - backend
     environment:
       HOSTIP: host.docker.internal
+      SCRAPEHOST: scraper
   fetcher:
     image: thiyageshv/product-scraping:fetcher
     networks:

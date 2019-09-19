@@ -18,3 +18,8 @@ func InitializeLogFile(logfilepath string) (*os.File, error) {
 func GetHostIP() string {
 	return os.Getenv("HOSTIP")
 }
+
+
+func GetScraperServiceName() string {
+	return os.Getenv("SCRAPEHOST")
+}

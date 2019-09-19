@@ -13,11 +13,11 @@ class ImageTile extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     children: <Widget>[
       ListTile(
-        title: Text(_meta.title + " by " + _meta.retailer),
-        subtitle: Text(_meta.price),
+        title: Text(_meta.title),
+        subtitle: Text(_meta.price + " (" + _meta.retailer + ")"),
         leading: Container(
           margin: EdgeInsets.only(left: 6.0),
-          child: Image.network(_img.iurl, height: 70.0, fit: BoxFit.fill,)
+          child: Image.network(_img.iurl, height: 50.0, fit: BoxFit.fill,)
         ),
       ),
       Divider()
@@ -30,19 +30,24 @@ class ProductTile extends StatelessWidget {
   ProductTile(this._product);
 
   @override
-  Widget build(BuildContext context) => Column(
-    children: <Widget>[
-    SizedBox(
-      width: 500.0,
-      height: 70.0,
-      child: ListView.builder(
-        itemCount: _product.imageurls.length,
-        itemBuilder: (context, index) => ImageTile(_product.imageurls[index], _product.metainfo),
-      ),
-    ),
-    Divider()
-   ],
-  );
+  Widget build(BuildContext context) {
+    if (_product.imageurls.length != 0) {
+      return new Column(
+              children: <Widget>[
+                      SizedBox(
+                          width: 500.0,
+                          height: 70.0,
+                          child: ListView.builder(
+                          itemCount: _product.imageurls.length,
+                          itemBuilder: (context, index) => ImageTile(_product.imageurls[index], _product.metainfo),
+                      ),
+              ),
+              Divider()
+            ],
+      );
+    }
+    return new Container();
+  } 
 }
 
 /* class ProductTile extends StatelessWidget {

@@ -28,7 +28,8 @@ func (a *App) scrape(purl string) (Product, error) {
 	var pinfo ScrapeResponse
 	bodyparams := map[string]string{}
 	bodyparams["producturl"] = purl
-	_, result, err := util.SendPostRequest(a.Conf.ScrapeEndpoint, bodyparams)
+	scrapeurl := "http://" + util.GetScraperServiceName() + ":5000" + a.Conf.ScrapeEndpoint
+	_, result, err := util.SendPostRequest(scrapeurl, bodyparams)
 	if err != nil {
 		return pinfo.Response, err
 	}
@@ -96,12 +97,13 @@ func (a *App) scrapeAndCache() error {
 		isFailed := false
 		pid, pname, purlid, purl  := page.PID, page.PName, page.PURLID, page.PURL
 		log.Println("###### Processing ", pid, pname, " with URL ", purl)
-		pinfo, err := a.scrape(purl)
-		log.Println("##### Finished scraping ", pid, pname, pinfo)
 		if purl == "" {
 			continue
 		}
+		pinfo, err := a.scrape(purl)
+		log.Println("##### Finished Scraping ", pid, pname, pinfo)
 		if err != nil {
+			log.Println("##### Scraping failed", err.Error())
 			isFailed = true
 			a.updateMetrics(pid, purlid, pname, page.TotalTries, page.TotalMisses, isFailed)
 			continue 
