@@ -99,9 +99,5 @@ class Scraper():
 
 if __name__ == '__main__':	
 	url = "https://www.amazon.com/Samsung-QN65Q6FN-FLAT-QLED-Smart/dp/B079V1MSQ1"
-	#"https://www.walmart.com/ip/Bounty-Full-Sheet-Paper-Towels-White-12-Super-Rolls-22-Regular-Rolls/459722147?athcpid=459722147&athpgid=athenaItemPage&athcgid=null&athznid=PWVUB&athieid=v0&athstid=CS004&athguid=6054e5d7-1d0-16d37a71cfc7a3&athancid=null&athena=true"
-	# "https://www.walmart.com/ip/AT-T-Apple-iPhone-11-Pro-Max-512GB-Silver-Upgrade-Only/745930459"
-	#"https://www.amazon.com/Samsung-QN65Q6FN-FLAT-QLED-Smart/dp/B079V1MSQ1"
-	#"https://www.amazon.com/PlayStation-4-Slim-1TB-Console/dp/B071CV8CG2/ref=sr_1_1?keywords=playstation&qid=1568515297&s=electronics&sr=1-1"
 	s = Scraper()
 	print(s.fetchInformation(url))

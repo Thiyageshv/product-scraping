@@ -25,7 +25,6 @@ func (a *App) initRouter() {
 	// endpoints
 	r := mux.NewRouter()
 	r.HandleFunc("/fetcher/api/v1/getInfo", a.getInfoEntry)
-	// r.handleFunc("/fetcher/api/v1/getSimpleInfo", a.getSimpleInfoEntry)
 	r.HandleFunc("/fetcher/api/v1/addInfo", a.addProductPageEntry)
 	r.HandleFunc("/fetcher/api/v1/getMetrics", a.getMetricsEntry)
 	http.Handle("/fetcher/api/v1/", r)
